@@ -5,11 +5,14 @@ services:
     build: .
     container_name: minsk-news-bot
     restart: unless-stopped
+    ports:
+      - "10000:10000"
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - CHANNEL_ID=${CHANNEL_ID}
       - LOG_LEVEL=INFO
+      - PORT=10000
     volumes:
-      - ./data:/app/data   # seen_news.json хранится здесь
+      - ./data:/app/data
     env_file:
       - .env
