@@ -1,19 +1,20 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Системные зависимости для lxml
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libxml2-dev libxslt1-dev gcc \
-    && rm -rf /var/lib/apt/lists/*
-
+# Устанавливаем зависимости
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Копируем код
 COPY bot.py .
 
-# Хранилище seen_news.json
+# Создаем папку для данных
 RUN mkdir -p /app/data
-ENV SEEN_FILE=/app/data/seen_news.json
 
-CMD ["python", "-u", "bot.py"]
+# Переменные окружения
+ENV PORT=10000
+ENV PYTHONUNBUFFERED=1
+
+# Запускаем бота
+CMD ["python", "bot.py"]
