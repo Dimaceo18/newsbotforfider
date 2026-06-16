@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  minsk-news-bot:
+    build: .
+    container_name: minsk-news-bot
+    restart: unless-stopped
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - CHANNEL_ID=${CHANNEL_ID}
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data   # seen_news.json хранится здесь
+    env_file:
+      - .env
