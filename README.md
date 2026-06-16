@@ -1,0 +1,2 @@
+# newsbotforfider
+FDR news bot
